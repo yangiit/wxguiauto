@@ -8,7 +8,7 @@ import subprocess
 import json
 import os
 
-from wx.wx_auto.common.utils import Logger
+from common.utils import Logger
 
 logger = Logger('Network')
 

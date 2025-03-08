@@ -7,7 +7,7 @@ import win32api
 import win32con
 import re
 
-from wx.wx_auto.common.utils import Logger
+from common.utils import Logger
 
 
 class Searchbar:
