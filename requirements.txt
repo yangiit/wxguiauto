@@ -1,0 +1,6 @@
+uiautomation==2.0.20
+keyboard==0.13.5
+pywin32==308
+pyautogui==0.9.54
+scapy==2.6.1
+psutil==6.1.1
