@@ -35,14 +35,30 @@ class WeChat:
         # 获取窗口句柄
         hwnd = wx.NativeWindowHandle
 
-        # 定义窗口大小和位置
-        left = 295  # 窗口左上角的 x 坐标
-        top = 175  # 窗口左上角的 y 坐标
-        width = 1138  # 窗口宽度
-        height = 800  # 窗口高度
+        # # 定义窗口大小和位置
+        # left = 295  # 窗口左上角的 x 坐标
+        # top = 175  # 窗口左上角的 y 坐标
+        # width = 1138  # 窗口宽度
+        # height = 800  # 窗口高度
+        #
+        # # 设置窗口大小和位置
+        # win32gui.SetWindowPos(hwnd, win32con.HWND_TOP, left, top, width, height, win32con.SWP_SHOWWINDOW)
+
+        # BoundingRectangle 数据
+        left = -1001
+        top = 442
+        right = -91
+        bottom = 1082
+
+        # 计算窗口大小和位置
+        x = left  # 窗口左上角的 x 坐标
+        y = top  # 窗口左上角的 y 坐标
+        cx = right - left  # 窗口宽度
+        cy = bottom - top  # 窗口高度
+
 
         # 设置窗口大小和位置
-        win32gui.SetWindowPos(hwnd, win32con.HWND_TOP, left, top, width, height, win32con.SWP_SHOWWINDOW)
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOP, x, y, cx, cy, win32con.SWP_SHOWWINDOW)
 
         child = wx.GetChildren()[-1]
 
@@ -60,4 +76,4 @@ if __name__ == '__main__':
     wx = WeChat()
     # wx.session_options.search_bar.send_keys('空空如也')
     # wx.session_options.search_bar.clear()
-    wx.session_options.search_list.flip()
+    wx.session_options.search_list.get_session_list()

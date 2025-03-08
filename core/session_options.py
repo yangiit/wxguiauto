@@ -1,9 +1,11 @@
+import copy
 from time import sleep
 
 import keyboard
 import pyautogui
 import win32api
 import win32con
+import re
 
 from wx.wx_auto.common.utils import Logger
 
@@ -45,13 +47,42 @@ class SessionList:
         self.session_list = self.element.ListControl(Name='会话', LocalizedControlType='列表')
 
     def get_session_list(self):
+        """
+        TODO: 功能待确认
+        :return:
+        """
         if not self.session_list.Exists(0.1):
             self.logger.log('找不到列表对象')
             return
-        for item in self.session_list.GetChildren():
+
+        session_list = []
+        init_session_list_object = self.session_list.GetChildren()
+        [session_list.append({
+            'name': options.Name,  # 假设子项有 Name 属性
+            'control_type': options.ControlType,
+            'runtime_id': options.GetRuntimeId(),
+        }) for options in init_session_list_object]
+
+        for page in range(1):
+            self.mouse_scrol()
+            sleep(1)
+            session_list_object = self.session_list.GetChildren()
+            for options in session_list_object:
+                session_list.append({
+                    'name': options.Name,
+                    'control_type': options.ControlType,
+                    'runtime_id': options.GetRuntimeId(),
+                })
+
+        for item in session_list:
             print(item)
 
-    def flip(self):
+    def mouse_scrol(self, line=10):
+        """
+        向下滚动
+        :param line: 行数
+        :return:
+        """
         # 获取控件的 BoundingRectangle
         rect = self.session_list.BoundingRectangle
         # 计算控件的中心位置
@@ -63,8 +94,11 @@ class SessionList:
         self.session_list.SetFocus()
 
         # 模拟鼠标滚轮向下滚动
-        for _ in range(10):
+        for _ in range(line):
             win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL, 0, 0, -120, 0)  # -120 表示向下滚动
+
+    def listen_session_list(self):
+        ...
 
 
 class SessionOptions:
