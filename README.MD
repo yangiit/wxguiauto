@@ -76,10 +76,29 @@ class WeChat:
 ## 快速开始
 
 ### 环境要求
-- Windows 10+
-- Python 3.8+
-- 微信PC版（3.9.12）
-- Inspect（微软元素定位工具）
+- **操作系统**: Windows 10 或更高版本  
+- **Python 环境**: Python 3.8+（需配置环境变量）  
+- **微信客户端**: 微信PC版 3.9.12（[官方下载](https://weixin.qq.com/)）  
+- **开发工具**（需手动安装）:  
+  - `Inspect` - 微软UI元素定位工具（[Windows SDK 内置](https://developer.microsoft.com/zh-cn/windows/downloads/windows-sdk/)）  
+  - `Procexp` - 进程资源管理器（[微软官方下载](https://learn.microsoft.com/zh-cn/sysinternals/downloads/process-explorer)）  
+
+---
+
+#### 工具说明
+1. **Inspect**  
+   - 用途：定位微信UI控件属性（如`ClassName`、`ControlType`）  
+   - 验证：运行后能识别微信窗口的`WeChatMainWndForPC`类名  
+
+2. **Procexp**  
+   - 用途：监控微信进程网络活动（需以管理员权限运行）  
+   - 验证：在工具中搜索`WeChat.exe`进程并查看TCP/UDP连接  
+
+#### 版本注意
+- 微信3.9.12版本存在以下依赖：  
+  - 窗口层级结构固定（核心代码依赖`PaneControl`索引）  
+  - 控件本地化名称为中文（如"清空"按钮）  
+- 若使用其他版本，需自行适配UI自动化相关代码  
 
 ### 安装步骤
 ```bash
